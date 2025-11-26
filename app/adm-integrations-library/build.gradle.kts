@@ -34,6 +34,7 @@ android {
 
 dependencies {
 
+    implementation(files("libs/SDMCPlatformAPI_Agile_V3.1.jar"))
     implementation(files("libs/sgc_framework_14-11_DIW252.jar"))
     implementation(libs.koin)
     implementation(libs.androidx.core.ktx)
