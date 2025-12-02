@@ -61,10 +61,5 @@ class SDMCPlatformApiImpl(
         /* packageName = */ packageName
     )
 
-    override fun screenShots(
-        filePath: String
-    ) = platformApi.screenShots(
-        /* filePath = */ filePath
-    )
 
 }

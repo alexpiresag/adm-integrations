@@ -5,12 +5,13 @@ import android.content.Context
 import android.content.Context.BIND_AUTO_CREATE
 import android.content.ServiceConnection
 import android.os.IBinder
+import android.util.Log
 import com.sagemcom.stb.StbManager
 
 /**
  * Connects to StbManager on Sagemcom stbs using AIDL
  * */
-class SagemcomApiImpl constructor(private val context: Context) : IntegrationsApi  {
+class SagemcomApiImpl(private val context: Context) : IntegrationsApi  {
     private var connection: ServiceConnection? = null
     var stbManager: StbManager? = null
 
@@ -28,6 +29,8 @@ class SagemcomApiImpl constructor(private val context: Context) : IntegrationsAp
             }
         }
         connection = conn
+     //   Log.i("TEST", "Class: " + StbManager::class.java.canonicalName)
+      //  Log.i("TEST","Service intent: "+ StbManager.getStbServiceIntent())
         context.bindService(StbManager.getStbServiceIntent(), conn, BIND_AUTO_CREATE)
     }
 
@@ -52,7 +55,18 @@ class SagemcomApiImpl constructor(private val context: Context) : IntegrationsAp
         get() = TODO("Not yet implemented")
 
     override val serialNumber: String?
-        get() = stbManager?.platformAPI!!.serialNumber
+        get() {
+            var serialNumber = ""
+            if (stbManager == null) {
+                bindService()
+            } else {
+                serialNumber = stbManager?.platformAPI!!.serialNumber
+                unbindService()
+            }
+            return serialNumber
+        }
+
+
 
     override fun injectKeyEvent(keyCode: Int) {
         TODO("Not yet implemented")
@@ -71,10 +85,6 @@ class SagemcomApiImpl constructor(private val context: Context) : IntegrationsAp
     }
 
     override fun removeApp(packageName: String) {
-        TODO("Not yet implemented")
-    }
-
-    override fun screenShots(filePath: String) {
         TODO("Not yet implemented")
     }
 
