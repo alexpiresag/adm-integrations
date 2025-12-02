@@ -30,8 +30,5 @@ interface IntegrationsApi {
         packageName: String
     )
 
-    fun screenShots(
-        filePath: String
-    )
 
 }

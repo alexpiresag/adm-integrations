@@ -1,6 +1,7 @@
 package com.example.admintegrations
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -60,8 +61,42 @@ fun MainScreen(viewModel: MainViewModel = koinViewModel()) {
                 Text("SERIAL NUMBER")
             }
 
-            Button(onClick = {  }) {
+            Button(onClick = {
+                val mac = viewModel.getMacAddress()
+                viewModel.updateLabel(mac ?: "")
+            }) {
                 Text("MAC ADDRESS")
+            }
+
+            Button(onClick = {
+                val listApps = viewModel.getRunningAppList()
+                val list = StringBuilder()
+                for (app in listApps) {
+                    list.append(app)
+                        .append("\n")
+                }
+                viewModel.updateLabel(list.toString())
+            }) {
+                Text("APPS LIST")
+            }
+
+            Button(onClick = {
+                val listServices = viewModel.getRunningServiceList()
+                val list = StringBuilder()
+                for (app in listServices) {
+                    list.append(app)
+                        .append("\n")
+                }
+                viewModel.updateLabel(list.toString())
+            }) {
+                Text("SERVICES LIST")
+            }
+
+            Button(onClick = {
+                viewModel.injectKeyEvent(3)
+                Log.i("KEY EVENT", "INJECTED keycode= "+3)
+            }) {
+                Text("INJECT KEY EVENT")
             }
         }
         Column(
