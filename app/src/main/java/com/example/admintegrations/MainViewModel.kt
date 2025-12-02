@@ -20,7 +20,35 @@ class MainViewModel(
         return integrationsApi.serialNumber
     }
 
-    fun macAddress(): String? {
+    fun getMacAddress(): String? {
         return integrationsApi.macAddress
+    }
+
+    fun getRunningAppList(): List<String> {
+        return integrationsApi.runningAppList
+    }
+
+    fun getRunningServiceList(): List<String> {
+        return integrationsApi.runningServiceList
+    }
+
+    fun injectKeyEvent(keyCode: Int) {
+        integrationsApi.injectKeyEvent(keyCode)
+    }
+
+    fun injectMotionEvent(x: Float, y: Float) {
+        integrationsApi.injectMotionEvent(x, y)
+    }
+
+    fun injectText(text: String) {
+        integrationsApi.injectText(text)
+    }
+
+    fun installApp(filePath: String, packageName: String) {
+        integrationsApi.installApp(filePath, packageName)
+    }
+
+    fun removeApp(packageName: String) {
+        integrationsApi.removeApp(packageName)
     }
 }
